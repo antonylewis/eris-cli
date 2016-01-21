@@ -23,7 +23,7 @@ import (
 	"strings"
 	"time"
 
-	mangen "github.com/eris-ltd/eris-cli/Godeps/_workspace/src/github.com/cpuguy83/go-md2man/md2man"
+	mangen "github.com/cpuguy83/go-md2man/md2man"
 	"github.com/eris-ltd/eris-cli/Godeps/_workspace/src/github.com/spf13/cobra"
 	"github.com/eris-ltd/eris-cli/Godeps/_workspace/src/github.com/spf13/pflag"
 )

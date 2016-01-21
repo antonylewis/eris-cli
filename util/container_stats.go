@@ -110,7 +110,7 @@ func printLine(container *docker.Container, existing bool) ([]string, error) {
 	} else {
 		running = "No"
 	}
-
+	//XXX machine?
 	Names := ContainerDisassemble(n)
 
 	parts := []string{Names.ShortName, "", running, Names.FullName, FormulatePortsOutput(container)}
@@ -278,5 +278,4 @@ func CheckParts(parts []string) error {
 	if len(parts) != 5 {
 		return fmt.Errorf("part length !=5")
 	}
-	return nil
 }

@@ -16,9 +16,14 @@
 			"Rev": "056c9bc7be7190eaa7715723883caffa5f8fa3e4"
 		},
 		{
-			"ImportPath": "github.com/cpuguy83/go-md2man/md2man",
-			"Comment": "v1.0.4",
-			"Rev": "71acacd42f85e5e82f70a55327789582a5200a90"
+			"ImportPath": "github.com/Sirupsen/logrus",
+			"Comment": "v0.8.7-53-g446d1c1",
+			"Rev": "446d1c146faa8ed3f4218f056fcd165f6bcfda81"
+		},
+		{
+			"ImportPath": "github.com/digitalocean/godo",
+			"Comment": "v0.9.0-16-g2688c11",
+			"Rev": "2688c11a02dc3deac65645c82c3c812f95e417bf"
 		},
 		{
 			"ImportPath": "github.com/docker/docker/pkg/term",
@@ -26,7 +31,38 @@
 			"Rev": "5f5a752bcf687aab0120e6c7903922ff01371ec0"
 		},
 		{
+			"ImportPath": "github.com/docker/go-units",
+			"Comment": "v0.1.0-21-g0bbddae",
+			"Rev": "0bbddae09c5a5419a8c6dcdd7ff90da3d450393b"
+		},
+		{
+			"ImportPath": "github.com/docker/machine/commands/mcndirs",
+			"Comment": "v0.6.0-rc1-14-g62bcc30",
+			"Rev": "62bcc3085942cf44fae31403d61ef04d70fce39c"
+		},
+		{
+			"ImportPath": "github.com/docker/machine/drivers/digitalocean",
+			"Comment": "v0.6.0-rc1-14-g62bcc30",
+			"Rev": "62bcc3085942cf44fae31403d61ef04d70fce39c"
+		},
+		{
+			"ImportPath": "github.com/docker/machine/drivers/errdriver",
+			"Comment": "v0.6.0-rc1-14-g62bcc30",
+			"Rev": "62bcc3085942cf44fae31403d61ef04d70fce39c"
+		},
+		{
+			"ImportPath": "github.com/docker/machine/drivers/none",
+			"Comment": "v0.6.0-rc1-14-g62bcc30",
+			"Rev": "62bcc3085942cf44fae31403d61ef04d70fce39c"
+		},
+		{
+			"ImportPath": "github.com/docker/machine/libmachine",
+			"Comment": "v0.6.0-rc1-14-g62bcc30",
+			"Rev": "62bcc3085942cf44fae31403d61ef04d70fce39c"
+		},
+		{
 			"ImportPath": "github.com/eris-ltd/common/go/common",
+<<<<<<< HEAD
 			"Rev": "31d06f51b52a9f2e841db234eb53997f2e4cd860"
 		},
 		{
@@ -36,14 +72,29 @@
 		{
 			"ImportPath": "github.com/eris-ltd/common/go/log",
 			"Rev": "31d06f51b52a9f2e841db234eb53997f2e4cd860"
+=======
+			"Rev": "bee4cb37e1138a757906d67b1d8e9797a1ff4862"
+		},
+		{
+			"ImportPath": "github.com/eris-ltd/common/go/ipfs",
+			"Rev": "bee4cb37e1138a757906d67b1d8e9797a1ff4862"
+		},
+		{
+			"ImportPath": "github.com/eris-ltd/common/go/log",
+			"Rev": "bee4cb37e1138a757906d67b1d8e9797a1ff4862"
+>>>>>>> remotes; try 1
 		},
 		{
 			"ImportPath": "github.com/fsouza/go-dockerclient",
 			"Rev": "02a8beb401b20e112cff3ea740545960b667eab1"
 		},
 		{
-			"ImportPath": "github.com/inconshreveable/mousetrap",
-			"Rev": "76626ae9c91c4f2a10f34cad8ce83ea42c93bb75"
+			"ImportPath": "github.com/google/go-querystring/query",
+			"Rev": "2a60fc2ba6c19de80291203597d752e9ba58e4c0"
+		},
+		{
+			"ImportPath": "github.com/hashicorp/hcl",
+			"Rev": "578dd9746824a54637686b51a41bad457a56bcef"
 		},
 		{
 			"ImportPath": "github.com/kr/pretty",
@@ -77,17 +128,12 @@
 			"Rev": "bc39950e081b457853031334b3c8b95cdfe428ba"
 		},
 		{
-			"ImportPath": "github.com/russross/blackfriday",
-			"Comment": "v1.2-80-g8cec3a8",
-			"Rev": "8cec3a854e68dba10faabbe31c089abf4a3e57a6"
+			"ImportPath": "github.com/samalba/dockerclient",
+			"Rev": "3c5f87482db1f82cf350f62aa5214aabd6016502"
 		},
 		{
 			"ImportPath": "github.com/serenize/snaker",
 			"Rev": "d88cc11617e4f179fa2c821a60908d5fabd7bdad"
-		},
-		{
-			"ImportPath": "github.com/shurcooL/sanitized_anchor_name",
-			"Rev": "244f5ac324cb97e1987ef901a0081a77bfd8e845"
 		},
 		{
 			"ImportPath": "github.com/spf13/cast",
@@ -115,17 +161,24 @@
 			"Rev": "6411ba19847f20afe47f603328d97aaeca6def6f"
 		},
 		{
+			"ImportPath": "github.com/tent/http-link-go",
+			"Rev": "ac974c61c2f990f4115b119354b5e0b47550e888"
+		},
+		{
+			"ImportPath": "golang.org/x/crypto/ssh",
+			"Rev": "ce6bda69189e9f4ff278a5e181691cd695f753ae"
+		},
+		{
+			"ImportPath": "golang.org/x/net/context",
+			"Rev": "5d0a0f8cd486626821d2ba44d471ab1c9271d38f"
+		},
+		{
+			"ImportPath": "golang.org/x/oauth2",
+			"Rev": "8a57ed94ffd43444c0879fe75701732a38afc985"
+		},
+		{
 			"ImportPath": "gopkg.in/yaml.v2",
 			"Rev": "5d6f7e02b7cdad63b06ab3877915532cd30073b4"
-		},
-		{
-			"ImportPath": "gopkg.in/fsnotify.v1",
-			"Rev": "5d6f7e02b7cdad63b06ab3877915532cd30073b4"
-		},
-		{
-			"ImportPath": "github.com/Sirupsen/logrus",
-			"Comment": "v0.8.7-53-g446d1c1",
-			"Rev": "446d1c146faa8ed3f4218f056fcd165f6bcfda81"
 		}
 	]
 }

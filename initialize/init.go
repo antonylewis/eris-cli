@@ -155,7 +155,7 @@ If you already have these images, they will be updated`)
 			return fmt.Errorf("Error reading from stdin: %v\n", err)
 		}
 		if input == "Y" || input == "y" || input == "YES" || input == "Yes" || input == "yes" {
-			if err := pullDefaultImages(); err != nil {
+			if err := pullDefaultImages(images); err != nil {
 				return err
 			}
 			log.Warn("Pulling of default images successful")

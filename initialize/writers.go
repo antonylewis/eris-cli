@@ -124,6 +124,7 @@ func pullDefaultImages() error {
 			opts.OutputStream = nil
 		}
 
+		log.WithField("=>", fmt.Sprintf("%s:%s", image, tag)).Warn("Pulling image:")
 		if err := util.DockerClient.PullImage(opts, auth); err != nil {
 			//try with hub (empty string)
 			opts.Repository = image

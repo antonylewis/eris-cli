@@ -145,6 +145,7 @@ func ChangeErisDir(erisDir string) {
 	dir.RemotesPath = filepath.Join(dir.ErisRoot, "remotes")
 	dir.ScratchPath = filepath.Join(dir.ErisRoot, "scratch")
 	dir.ServicesPath = filepath.Join(dir.ErisRoot, "services")
+	dir.RemotesPath = filepath.Join(dir.ErisRoot, "remotes")
 
 	// Chains Directories
 	dir.DefaultChainPath = filepath.Join(dir.ChainsPath, "default")
