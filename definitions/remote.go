@@ -1,6 +1,6 @@
 package definitions
 
-//XXX this'll write to csv on creation
+// might not need this ... ?
 type RemMachine struct {
 	Name   string `json:"name" yaml:"name" toml:"name"`
 	Driver string `json:"driver" yaml:"driver" toml:"driver"` //will need its own strcut for different types of drivers...

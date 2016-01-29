@@ -278,4 +278,5 @@ func CheckParts(parts []string) error {
 	if len(parts) != 5 {
 		return fmt.Errorf("part length !=5")
 	}
+	return nil
 }

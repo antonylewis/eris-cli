@@ -49,6 +49,8 @@ func GetGlobalLevelConfigFilesByType(typ string, withExt bool) []string {
 		path = ChainsPath
 	case "actions":
 		path = ActionsPath
+	case "remotes":
+		path = RemotesPath
 	}
 
 	files := []string{}

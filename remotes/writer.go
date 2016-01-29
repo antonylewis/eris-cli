@@ -2,10 +2,11 @@ package remotes
 
 import (
 	"encoding/json"
-	//"fmt"
+	"fmt"
 	"os"
 	"path/filepath"
 	"strconv"
+	"strings"
 
 	def "github.com/eris-ltd/eris-cli/definitions"
 
@@ -52,9 +53,22 @@ func WriteRemoteDefinitionFile(remoteDef *def.RemoteDefinition, fileName string)
 		writer.Write([]byte("driver = \"" + "digitalocean" + "\"\n"))
 		writer.Write([]byte("regions = " + "[ \"all\" ]" + "\n"))
 		writer.Write([]byte("services = " + "[ \"all\" ]" + "\n")) //imgs to pull in
-
+		writer.Write([]byte("machines = " + "[\n" + fmtMachs(remoteDef.Machines) + "\n]\n"))
 		writer.Write([]byte("\n[maintainer]\n"))
 		enc.Encode(remoteDef.Maintainer)
+
 	}
 	return nil
+}
+
+func fmtMachs(machines []string) string {
+	k := len(machines) - 1
+	for i, mach := range machines {
+		machines[i] = fmt.Sprintf("\t\"%s\",", mach)
+		//last string in arr => no comma
+		if k == i {
+			machines[i] = fmt.Sprintf("\t\"%s\"", mach)
+		}
+	}
+	return strings.Join(machines, "\n")
 }

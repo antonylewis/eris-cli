@@ -13,12 +13,8 @@ import (
 	"strings"
 
 	log "github.com/eris-ltd/eris-cli/Godeps/_workspace/src/github.com/Sirupsen/logrus"
-	//	"github.com/docker/machine/libmachine"
-	// "github.com/docker/machine/libmachine/persist"
-
-	"github.com/eris-ltd/eris-cli/Godeps/_workspace/src/github.com/fsouza/go-dockerclient"
-
 	. "github.com/eris-ltd/eris-cli/Godeps/_workspace/src/github.com/eris-ltd/common/go/common"
+	"github.com/eris-ltd/eris-cli/Godeps/_workspace/src/github.com/fsouza/go-dockerclient"
 )
 
 // Docker Client initialization
@@ -29,18 +25,6 @@ func DockerConnect(verbose bool, machName string) { // TODO: return an error...?
 	var dockerHost string
 	var dockerCertPath string
 	if runtime.GOOS == "linux" {
-		/*home := os.Getenv("HOME")
-		fs := path.Join(home, ".docker/machine")
-
-		f := persist.NewFilestore(fs, "", "")
-
-		//		list, erro := libmachine.API.List(f)
-		ls, erro := f.List()
-		if erro != nil {
-			fmt.Printf("ERORRRR: %v\n", erro)
-			os.Exit(1)
-		}
-		fmt.Printf("LIST: %v\n", ls)*/
 
 		// this means we aren't gonna use docker-machine (kind of)
 		if (machName == "eris" || machName == "default") && (os.Getenv("DOCKER_HOST") == "" && os.Getenv("DOCKER_CERT_PATH") == "") {
@@ -68,6 +52,8 @@ func DockerConnect(verbose bool, machName string) { // TODO: return an error...?
 			if err != nil {
 				IfExit(fmt.Errorf("Error getting Docker Machine details for connection via TLS.\nERROR =>\t\t\t%v\n\nEither re-run the command without a machine or correct your machine name.\n", err))
 			}
+
+			dockerCertPath = GetMachineCertDir()
 
 			log.WithFields(log.Fields{
 				"host":      dockerHost,
@@ -227,7 +213,7 @@ func getMachineDeets(machName string) (string, string, error) {
 	}
 
 	log.Info("Querying host and user have access to the right files for TLS connection to Docker")
-	if err := checkKeysAndCerts(dPath); err != nil {
+	if err := checkKeysAndCerts(GetMachineCertDir()); err != nil {
 		return "", "", err
 	}
 	log.Debug("Certificate files look good")
@@ -235,7 +221,7 @@ func getMachineDeets(machName string) (string, string, error) {
 	// technically, do not *have* to do this, but it will make repetitive tasks faster
 	log.Debug("Setting environment variables for quick future development")
 	os.Setenv("DOCKER_HOST", dHost)
-	os.Setenv("DOCKER_CERT_PATH", dPath)
+	//	os.Setenv("DOCKER_CERT_PATH", dPath)
 	os.Setenv("DOCKER_TLS_VERIFY", "1")
 	os.Setenv("DOCKER_MACHINE_NAME", machName)
 
@@ -323,7 +309,7 @@ func connectDockerTLS(dockerHost, dockerCertPath string) error {
 }
 
 func popHostAndPath() (string, string) {
-	return os.Getenv("DOCKER_HOST"), os.Getenv("DOCKER_CERT_PATH")
+	return os.Getenv("DOCKER_HOST"), GetMachineCertDir()
 }
 
 func checkKeysAndCerts(dPath string) error {

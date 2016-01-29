@@ -3,8 +3,8 @@ package services
 import (
 	"errors"
 	"fmt"
+	"os"
 	"strings"
-        "os"
 
 	"github.com/eris-ltd/eris-cli/definitions"
 	"github.com/eris-ltd/eris-cli/loaders"
@@ -19,9 +19,9 @@ var (
 
 //checks that a service is running. if not, tells user to start it
 func EnsureRunning(do *definitions.Do) error {
-        if os.Getenv("ERIS_SKIP_ENSURE") != "" {
-               return nil
-        } 
+	if os.Getenv("ERIS_SKIP_ENSURE") != "" {
+		return nil
+	}
 
 	srv, err := loaders.LoadServiceDefinition(do.Name, false, do.Operations.ContainerNumber)
 	if err != nil {

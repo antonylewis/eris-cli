@@ -2,11 +2,14 @@ package list
 
 import (
 	"fmt"
+	//	"os"
+	//	"path"
 	"strings"
 
-	log "github.com/eris-ltd/eris-cli/Godeps/_workspace/src/github.com/Sirupsen/logrus"
 	"github.com/eris-ltd/eris-cli/definitions"
 	"github.com/eris-ltd/eris-cli/util"
+
+	log "github.com/eris-ltd/eris-cli/Godeps/_workspace/src/github.com/Sirupsen/logrus"
 )
 
 //looks for definition files in ~/.eris/typ
@@ -126,7 +129,6 @@ func ListActions(do *definitions.Do) error {
 }
 
 // lists the containers running for a chain/service
-// eventually remotes/actions
 // existing -> true to ls existing; false to ls running
 func ListRunningOrExisting(quiet, existing bool, typ string) (result string, err error) {
 	re := "Running"

@@ -52,7 +52,7 @@ var (
 		"-o", "PasswordAuthentication=no",
 		"-o", "StrictHostKeyChecking=no",
 		"-o", "UserKnownHostsFile=/dev/null",
-		"-o", "LogLevel=quiet", // suppress "Warning: Permanently added '[localhost]:2022' (ECDSA) to the list of known hosts."
+		"-o", "LogLevel=debug", // suppress "Warning: Permanently added '[localhost]:2022' (ECDSA) to the list of known hosts."
 		"-o", "ConnectionAttempts=3", // retry 3 times if SSH connection fails
 		"-o", "ConnectTimeout=10", // timeout after 10 seconds
 		"-o", "ControlMaster=no", // disable ssh multiplexing

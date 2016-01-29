@@ -2,7 +2,7 @@ package loaders
 
 import (
 	"fmt"
-	"path/filepath"
+	//"path/filepath"
 	//"strings"
 
 	"github.com/eris-ltd/eris-cli/config"
@@ -19,7 +19,6 @@ import (
 func LoadRemoteDefinition(remName string) (*definitions.RemoteDefinition, error) {
 
 	rem := definitions.BlankRemoteDefinition()
-	//rem.Name = remName
 	remConf, err := loadRemoteDefinition(remName)
 	if err != nil {
 		return nil, err
@@ -40,6 +39,12 @@ func LoadRemoteDefinition(remName string) (*definitions.RemoteDefinition, error)
 	if rem.Driver != "digitalocean" {
 		return nil, fmt.Errorf("Driver specified is not Digital Ocean.")
 	}
+
+	if len(rem.Machines) != rem.Nodes {
+		erro := fmt.Sprintf("Number of machines (%v) not equal nodes (%v)", len(rem.Machines), rem.Nodes)
+		return nil, fmt.Errorf(erro)
+	}
+
 	return rem, nil
 
 }
@@ -48,12 +53,12 @@ func MarshalRemoteDefinition(remConf *viper.Viper, rem *definitions.RemoteDefini
 	err := remConf.Unmarshal(rem)
 	if err != nil {
 		log.WithField("=>", fmt.Sprintf("%v", err)).Warn("Unmarshal error:")
-		// Vipers error messages are atrocious.
+
 		return fmt.Errorf("Sorry, the marmots could not figure that remote definition out.\nPlease check for known remote with [eris remotes ls --known] and retry.\n")
 	}
 	return nil
 }
 
 func loadRemoteDefinition(remName string) (*viper.Viper, error) {
-	return config.LoadViperConfig(filepath.Join(RemotesPath), remName, "remote")
+	return config.LoadViperConfig(RemotesPath, remName, "remote")
 }
