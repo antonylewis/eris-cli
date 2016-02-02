@@ -1,7 +1,9 @@
 package remotes
 
-import ()
+import (
+	"github.com/eris-ltd/eris-cli/definitions"
+)
 
-func Do(args []string) {
-
+func Do(do *definitions.Do) error {
+	return nil
 }

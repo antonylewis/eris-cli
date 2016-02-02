@@ -3,10 +3,9 @@ package commands
 import (
 	"strconv"
 
-	//"github.com/eris-ltd/eris-cli/list"
 	rem "github.com/eris-ltd/eris-cli/remotes"
 
-	log "github.com/eris-ltd/eris-cli/Godeps/_workspace/src/github.com/Sirupsen/logrus"
+	. "github.com/eris-ltd/eris-cli/Godeps/_workspace/src/github.com/eris-ltd/common/go/common"
 	"github.com/eris-ltd/eris-cli/Godeps/_workspace/src/github.com/spf13/cobra"
 )
 
@@ -37,20 +36,11 @@ func buildRemotesCommand() {
 }
 
 var remotesNew = &cobra.Command{
-	Use:   "new NAME NODES", //eventuall DRIVER
+	Use:   "new NAME NODES", //ax NODES in favour of flag
 	Short: "Command-line tool to deploy new remotes",
 	Long: `Tool will prompt for deploy options.
 	Requires docker-machine installed and a Digital Ocean API Token.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		var err error
-		do.Name = args[0]
-		do.Nodes, err = strconv.Atoi(args[1])
-		if err != nil {
-			log.Warn("strconv err:")
-			log.Error(err)
-		}
-		rem.NewRemote(do)
-	},
+	Run: NewRemote,
 }
 
 var remotesInit = &cobra.Command{
@@ -58,80 +48,118 @@ var remotesInit = &cobra.Command{
 	Short: "Initialize remotes from remotes definition file.",
 	Long: `Initialize remotes from remotes definition file.
 	Creates N machines & pulls specified service images.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		rem.Init(args)
-	},
+	Run: InitRemote,
 }
 
 var remotesList = &cobra.Command{
 	Use:   "ls",
 	Short: "List all registered remotes.",
 	Long:  `List all registered remotes`,
-	Run: func(cmd *cobra.Command, args []string) {
-		rem.ListRemotes()
-	},
+	Run:   ListRemotes,
 }
 
 var remotesDo = &cobra.Command{
 	Use:   "do NAME ACTION",
 	Short: "Perform an action on a remote.",
 	Long:  `Perform an action on a remote according to the action definition file.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		rem.Do(args)
-	},
+	Run:   DoRemote,
 }
 
 var remotesEdit = &cobra.Command{
 	Use:   "edit NAME",
 	Short: "Edit a remote definition file.",
 	Long:  `Edit a remote definition file`,
-	Run: func(cmd *cobra.Command, args []string) {
-		_ = rem.EditRemote(args)
-	},
+	Run:   EditRemote,
 }
 
 var remotesProv = &cobra.Command{
 	Use:   "prov NAME",
 	Short: "",
 	Long:  ``,
-	Run: func(cmd *cobra.Command, args []string) {
-		_ = rem.ProvRemote(args)
-	},
+	Run:   ProvRemote,
 }
 
 var remotesCat = &cobra.Command{
 	Use:   "cat NAME",
 	Short: "Cat a remote definition file.",
 	Long:  `Cat a remote definition file`,
-	Run: func(cmd *cobra.Command, args []string) {
-		_ = rem.CatRemote(args)
-	},
+	Run:   CatRemote,
 }
 
 var remotesRename = &cobra.Command{
 	Use:   "rename OLD NEW",
 	Short: "Rename a remote and all its hosts.",
 	Long:  `Rename a remote and all its hosts.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		rem.Rename(args)
-	},
+	Run:   RenameRemote,
 }
 
 var remotesRemove = &cobra.Command{
 	Use:   "rm NAME",
 	Short: "Remove a remote and all its hosts.",
 	Long:  `Remove a remote and all its hosts.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		rem.RemoveRemote(args)
-	},
+	Run:   RemoveRemote,
 }
 
 func buildRemotesFlags() {
 
 }
 
-func ListRemotes() {
-	if err := rem.ListRemotes(); err != nil {
-		return
-	}
+// all remotes take a single arg (NAME)
+// save for new & ls
+func NewRemote(cmd *cobra.Command, args []string) {
+	IfExit(ArgCheck(2, "eq", cmd, args))
+
+	var err error
+	do.Name = args[0]
+	do.Nodes, err = strconv.Atoi(args[1])
+	IfExit(err)
+	IfExit(rem.NewRemote(do))
+}
+
+func InitRemote(cmd *cobra.Command, args []string) {
+	IfExit(ArgCheck(1, "eq", cmd, args))
+	do.Name = args[0]
+	IfExit(rem.Init(do))
+}
+
+func ListRemotes(cmd *cobra.Command, args []string) {
+	//flags only (coming)
+	IfExit(ArgCheck(0, "eq", cmd, args))
+	IfExit(rem.ListRemotes(do))
+}
+
+func DoRemote(cmd *cobra.Command, args []string) {
+	IfExit(ArgCheck(1, "eq", cmd, args))
+	do.Name = args[0]
+	IfExit(rem.Do(do))
+}
+
+func EditRemote(cmd *cobra.Command, args []string) {
+	IfExit(ArgCheck(1, "eq", cmd, args))
+	do.Name = args[0]
+	IfExit(rem.EditRemote(do))
+}
+
+func ProvRemote(cmd *cobra.Command, args []string) {
+	IfExit(ArgCheck(1, "eq", cmd, args))
+	do.Name = args[0]
+	IfExit(rem.ProvRemote(do))
+}
+
+func CatRemote(cmd *cobra.Command, args []string) {
+	IfExit(ArgCheck(1, "eq", cmd, args))
+	do.Name = args[0]
+	IfExit(rem.CatRemote(do))
+}
+
+func RenameRemote(cmd *cobra.Command, args []string) {
+	IfExit(ArgCheck(1, "eq", cmd, args))
+	do.Name = args[0]
+	IfExit(rem.Rename(do))
+}
+
+func RemoveRemote(cmd *cobra.Command, args []string) {
+	IfExit(ArgCheck(1, "eq", cmd, args))
+	do.Name = args[0]
+	IfExit(rem.RemoveRemote(do))
 }

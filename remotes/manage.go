@@ -47,12 +47,14 @@ func NewRemote(do *definitions.Do) error {
 	return nil
 }
 
-func ListRemotes() error {
+func ListRemotes(do *definitions.Do) error {
 	rems, err := list.ListKnown("remotes")
 	if err != nil {
-		log.Warn("ls know rem err")
-		log.Error(err)
 		return err
+	}
+	if rems == "" {
+		log.Warn("No known remotes")
+		return nil
 	}
 
 	knowns := strings.Split(rems, "\n")
@@ -64,9 +66,11 @@ func ListRemotes() error {
 
 	hosts, err := list.ListExistingRemotes()
 	if err != nil {
-		log.Warn("ls exsting rem err")
-		log.Error(err)
 		return err
+	}
+	if len(hosts) == 0 {
+		log.Warn("No hosts found for that remote.")
+		return nil
 	}
 
 	log.WithField("=>", hosts[0]).Warn("The existing remote hosts kind marmot:")
@@ -77,19 +81,19 @@ func ListRemotes() error {
 	return nil
 }
 
-func EditRemote(args []string) error {
-	remDefFile := FindRemoteDefinitionFile(args[0])
+func EditRemote(do *definitions.Do) error {
+	remDefFile := FindRemoteDefinitionFile(do.Name)
 	log.WithField("=>", remDefFile).Info("Editing remote")
 	//do.Result = "success"
 	return Editor(remDefFile)
 
 }
 
-func CatRemote(args []string) error {
+func CatRemote(do *definitions.Do) error {
 	configs := util.GetGlobalLevelConfigFilesByType("remotes", true)
 	for _, c := range configs {
 		cName := strings.Split(filepath.Base(c), ".")[0]
-		if cName == args[0] {
+		if cName == do.Name {
 			cat, err := ioutil.ReadFile(c)
 			if err != nil {
 				return err
@@ -99,11 +103,11 @@ func CatRemote(args []string) error {
 			return nil
 		}
 	}
-	return fmt.Errorf("Unknown remote %s or invalid file extension", args[0])
+	return fmt.Errorf("Unknown remote %s or invalid file extension", do.Name)
 }
 
-func RemoveRemote(args []string) error {
-	remDef, err := loaders.LoadRemoteDefinition(args[0])
+func RemoveRemote(do *definitions.Do) error {
+	remDef, err := loaders.LoadRemoteDefinition(do.Name)
 	if err != nil {
 		return err
 	}
@@ -114,6 +118,6 @@ func RemoveRemote(args []string) error {
 	return nil
 }
 
-func Rename(args []string) {
-
+func Rename(do *definitions.Do) error {
+	return nil
 }
