@@ -12,6 +12,7 @@ import (
 	"github.com/eris-ltd/eris-cli/definitions"
 	"github.com/eris-ltd/eris-cli/util"
 
+	"github.com/eris-ltd/eris-cli/Godeps/_workspace/src/github.com/docker/machine/commands/mcndirs"
 	"github.com/eris-ltd/eris-cli/Godeps/_workspace/src/github.com/docker/machine/libmachine"
 	"github.com/eris-ltd/eris-cli/Godeps/_workspace/src/github.com/docker/machine/libmachine/host"
 	"github.com/eris-ltd/eris-cli/Godeps/_workspace/src/github.com/docker/machine/libmachine/persist"
@@ -191,7 +192,7 @@ func createMachine(name, driverTyp string) error {
 		return err
 	}
 
-	driver := digitalocean.NewDriver(name, util.GetBaseDir())
+	driver := digitalocean.NewDriver(name, mcndirs.GetBaseDir())
 
 	driver.AccessToken = getToken()
 	driver.DropletName = name

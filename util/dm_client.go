@@ -3,10 +3,11 @@ package util
 import (
 	//"fmt"
 	//"os"
-	"path/filepath"
+	//"path/filepath"
 
+	"github.com/eris-ltd/eris-cli/Godeps/_workspace/src/github.com/docker/machine/commands/mcndirs"
 	"github.com/eris-ltd/eris-cli/Godeps/_workspace/src/github.com/docker/machine/libmachine"
-	. "github.com/eris-ltd/eris-cli/Godeps/_workspace/src/github.com/eris-ltd/common/go/common"
+	//. "github.com/eris-ltd/eris-cli/Godeps/_workspace/src/github.com/eris-ltd/common/go/common"
 )
 
 //var api libmachine.API
@@ -14,7 +15,7 @@ import (
 func RemotesConnect(remName string) (api libmachine.API, err error) {
 	//check if dm is actually instaled!
 
-	api = libmachine.NewClient(GetBaseDir(), GetMachineCertDir())
+	api = libmachine.NewClient(mcndirs.GetBaseDir(), mcndirs.GetMachineCertDir())
 	defer api.Close()
 
 	//fmt.Print("Get Machines Dir: %s\n", api.GetMachinesDir())
@@ -29,7 +30,7 @@ func RemotesConnect(remName string) (api libmachine.API, err error) {
 /*var (
 	BaseDir = os.Getenv("MACHINE_STORAGE_PATH")
 )*/
-
+/*
 func GetBaseDir() string {
 	//	if BaseDir == "" {
 	BaseDir := filepath.Join(RemotesPath, "machine")
@@ -43,4 +44,4 @@ func GetMachineDir() string {
 
 func GetMachineCertDir() string {
 	return filepath.Join(GetBaseDir(), "certs")
-}
+}*/

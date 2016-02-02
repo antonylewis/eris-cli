@@ -13,6 +13,7 @@ import (
 	"strings"
 
 	log "github.com/eris-ltd/eris-cli/Godeps/_workspace/src/github.com/Sirupsen/logrus"
+	"github.com/eris-ltd/eris-cli/Godeps/_workspace/src/github.com/docker/machine/commands/mcndirs"
 	. "github.com/eris-ltd/eris-cli/Godeps/_workspace/src/github.com/eris-ltd/common/go/common"
 	"github.com/eris-ltd/eris-cli/Godeps/_workspace/src/github.com/fsouza/go-dockerclient"
 )
@@ -53,7 +54,7 @@ func DockerConnect(verbose bool, machName string) { // TODO: return an error...?
 				IfExit(fmt.Errorf("Error getting Docker Machine details for connection via TLS.\nERROR =>\t\t\t%v\n\nEither re-run the command without a machine or correct your machine name.\n", err))
 			}
 
-			dockerCertPath = GetMachineCertDir()
+			dockerCertPath = mcndirs.GetMachineCertDir()
 
 			log.WithFields(log.Fields{
 				"host":      dockerHost,
@@ -213,7 +214,7 @@ func getMachineDeets(machName string) (string, string, error) {
 	}
 
 	log.Info("Querying host and user have access to the right files for TLS connection to Docker")
-	if err := checkKeysAndCerts(GetMachineCertDir()); err != nil {
+	if err := checkKeysAndCerts(mcndirs.GetMachineCertDir()); err != nil {
 		return "", "", err
 	}
 	log.Debug("Certificate files look good")
@@ -309,7 +310,7 @@ func connectDockerTLS(dockerHost, dockerCertPath string) error {
 }
 
 func popHostAndPath() (string, string) {
-	return os.Getenv("DOCKER_HOST"), GetMachineCertDir()
+	return os.Getenv("DOCKER_HOST"), mcndirs.GetMachineCertDir()
 }
 
 func checkKeysAndCerts(dPath string) error {
