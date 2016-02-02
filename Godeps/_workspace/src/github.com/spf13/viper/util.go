@@ -22,7 +22,7 @@ import (
 	"unicode"
 
 	"github.com/eris-ltd/eris-cli/Godeps/_workspace/src/github.com/BurntSushi/toml"
-	"github.com/eris-ltd/eris-cli/Godeps/_workspace/src/github.com/hashicorp/hcl"
+	//"github.com/eris-ltd/eris-cli/Godeps/_workspace/src/github.com/hashicorp/hcl"
 	"github.com/eris-ltd/eris-cli/Godeps/_workspace/src/github.com/magiconair/properties"
 	"github.com/eris-ltd/eris-cli/Godeps/_workspace/src/github.com/spf13/cast"
 	jww "github.com/eris-ltd/eris-cli/Godeps/_workspace/src/github.com/spf13/jwalterweatherman"
