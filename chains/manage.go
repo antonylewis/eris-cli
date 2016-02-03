@@ -3,6 +3,7 @@ package chains
 import (
 	"bytes"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"os"
 	"path"
@@ -115,7 +116,7 @@ func MakeChain(do *definitions.Do) error {
 		}
 	}
 
-	if err := perform.DockerExecService(do.Service, do.Operations); err != nil {
+	if _, err := perform.DockerExecService(do.Service, do.Operations); err != nil {
 		return err
 	}
 
@@ -302,7 +303,12 @@ func CatChain(do *definitions.Do) error {
 	}
 	do.Operations.PublishAllPorts = true
 	log.WithField("args", do.Operations.Args).Debug("Executing command")
-	return ExecChain(do)
+
+	buf, err := ExecChain(do)
+
+	io.Copy(config.GlobalConfig.Writer, buf)
+
+	return err
 }
 
 // PortsChain displays the port mapping for a particular chain.

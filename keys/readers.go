@@ -1,12 +1,10 @@
 package keys
 
 import (
-	"bytes"
 	"io/ioutil"
 	"path/filepath"
 	"strings"
 
-	"github.com/eris-ltd/eris-cli/config"
 	"github.com/eris-ltd/eris-cli/definitions"
 	srv "github.com/eris-ltd/eris-cli/services"
 	"github.com/eris-ltd/eris-cli/util"
@@ -35,8 +33,6 @@ func ListKeys(do *definitions.Do) error {
 	}
 
 	if do.Container {
-		keysOut := new(bytes.Buffer)
-		config.GlobalConfig.Writer = keysOut
 		do.Name = "keys"
 		do.Operations.ContainerNumber = 1
 		if err := srv.EnsureRunning(do); err != nil {
@@ -46,10 +42,11 @@ func ListKeys(do *definitions.Do) error {
 		do.Operations.Interactive = false
 		do.Operations.Args = []string{"ls", "/home/eris/.eris/keys/data"}
 
-		if err := srv.ExecService(do); err != nil {
+		keysOut, err := srv.ExecService(do)
+		if err != nil {
 			return err
 		}
-		keysOutString := strings.Split(util.TrimString(string(keysOut.Bytes())), "\n")
+		keysOutString := strings.Split(util.TrimString(keysOut.String()), "\n")
 		do.Result = strings.Join(keysOutString, ",")
 		log.WithField("=>", keysOutString[0]).Warn("The keys in your container kind marmot:")
 		keysOutString = append(keysOutString[:0], keysOutString[1:]...)
