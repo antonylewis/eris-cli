@@ -116,9 +116,12 @@ func MakeChain(do *definitions.Do) error {
 		}
 	}
 
-	if _, err := perform.DockerExecService(do.Service, do.Operations); err != nil {
+	buf, err := perform.DockerExecService(do.Service, do.Operations)
+	if err != nil {
 		return err
 	}
+
+	io.Copy(config.GlobalConfig.Writer, buf)
 
 	doData.Source = path.Join(ErisContainerRoot, "chains")
 	doData.Destination = ErisRoot
