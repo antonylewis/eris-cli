@@ -105,7 +105,7 @@ func MakeChain(do *definitions.Do) error {
 	chnPath := filepath.Join(ChainsPath, do.Name)
 	if _, err := os.Stat(chnPath); !os.IsNotExist(err) {
 		doData.Operations.Args = []string{"mkdir", "--parents", path.Join(ErisContainerRoot, "chains", do.Name)}
-		if err := data.ExecData(doData); err != nil {
+		if _, err := data.ExecData(doData); err != nil {
 			return err
 		}
 		doData.Operations.Args = []string{}
